@@ -1,36 +1,46 @@
 import React from "react";
-import {Text} from "react-native";
-import {ContainerCard, ContainerImage} from "./style";
+import { Image, Text } from "react-native";
+import { ContainerCard, Content } from "./style";
 
+const PokemonCard = ({ name, image }) => {
+  return (
+    <ContainerCard>
+      <Content>
+      
+      <Image src={image} 
+      height="140"
+      alt="pokemon" />
+      </Content>
 
-const PokemonCard = ({name, image}) => { 
-    return (
-        
-        <ContainerCard>
-            <ContainerImage>
-            <img src={image} alt="" />
-            </ContainerImage>
-            <Text>{name}</Text>
-        </ContainerCard>
-    )
+      <Text>{name}</Text>
+    </ContainerCard>
+  );
+};
 
-}
-// const deviceWidth = Math.round(Dimensions.get("window").width);
-// const styles = StyleSheet.create({
-// cardContainer: {
-//     width: deviceWidth - 20,
-//     backgroundColor: '#b9f',
-//     color: 'black',
-//     borderRadius: 20,
-//     shadowOffset: {
-//         width: 5,
-//         height: 5,
-//     },
-//     shadowColor: '#000',
-//     shadowOpacity: 0.75,
-//     shadowRadius: 5,
-//     elevation: 9,
-
-// },
-// });
 export default PokemonCard;
+// import * as React from 'react';
+// import Card from '@mui/material/Card';
+// import CardContent from '@mui/material/CardContent';
+// import CardMedia from '@mui/material/CardMedia';
+// import Typography from '@mui/material/Typography';
+// import { CardActionArea } from '@mui/material';
+
+// export default function PokemonCard({name}) {
+//   return (
+//     <Card sx={{ maxWidth: 345 }}>
+//       <CardActionArea>
+//         <CardMedia
+//           component="img"
+//           height="140"
+//           image=""
+//           alt="green iguana"
+//         />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="div">
+//             {name}
+//           </Typography>
+//        </CardContent>
+//       </CardActionArea>
+//     </Card>
+//   );
+// }

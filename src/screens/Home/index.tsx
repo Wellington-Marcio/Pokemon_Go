@@ -15,10 +15,12 @@ const Home = () => {
 
   const getPokemons = () => {
     const endpoints = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 3; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+      
     }
     const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res));
+  
   };
 
   return (
@@ -29,7 +31,7 @@ const Home = () => {
         {pokemons.map((pokemon, key) => (
           <Container item xs={12} sm={6} md={4} lg={3}key={key}>
           
-              <PokemonCard name={pokemon.name}/>
+              <PokemonCard name={pokemon.data.name} image={pokemon.data.sprites.front_dafault}/>
           
           </Container>
         ))}
