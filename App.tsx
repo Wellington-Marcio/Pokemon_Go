@@ -1,23 +1,15 @@
-// import { StyleSheet, Dimensions} from 'react-native'
-import React from 'react'
-import { Container } from './src/components/Global/style'
-import Home from './src/screens/Home'
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import AppRoutes from "./src/components/Routes/AppRoutes";
 
 
-
-const App = () => {
-  return (<>
-    
-    <Container>
-      
-      <Home/>
-      
-    </Container>
-    </>
-  )
+function App() {
+  return (
+    <NavigationContainer>
+      <StatusBar style="auto" />
+      <AppRoutes />
+    </NavigationContainer>
+  );
 }
-
-
-
-export default App
-
+export default App;

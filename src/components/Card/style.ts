@@ -9,8 +9,8 @@ export const ContainerCard = styled.View`
     background-color: #b9f9b9;
     color: black;
     border-Radius: 20px;
-    width: ${deviceWidth};
-    elevation: 9px; 
+    width: 100%;
+    /* elevation: 9px;  */
     margin: 5px;
     padding: 5px;
     align-items: center;
@@ -26,8 +26,11 @@ export const ContainerCard = styled.View`
 
 
 export const Content = styled.View`
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     margin: 5px;
-    position:absolute;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    
 `;

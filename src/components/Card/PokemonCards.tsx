@@ -1,46 +1,81 @@
 import React from "react";
-import { Image, Text } from "react-native";
-import { ContainerCard, Content } from "./style";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const PokemonCard = ({ name, image }) => {
+const PokemonCard = ({ sprites, id, name, onPress }) => {
   return (
-    <ContainerCard>
-      <Content>
-      
-      <Image src={image} 
-      height="140"
-      alt="pokemon" />
-      </Content>
-
-      <Text>{name}</Text>
-    </ContainerCard>
+    <TouchableOpacity onPress={onPress} style={styles.card}>
+      <View style={styles.card}>
+        <Image source={{ uri: sprites.front_shiny }} style={styles.image} />
+        <View style={styles.frame}>
+          <View style={styles.idBox}>
+            <Text style={styles.id}>#{id}</Text>
+          </View>
+          <View style={styles.nameBox}>
+            <Text style={styles.name}>{name}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
-export default PokemonCard;
-// import * as React from 'react';
-// import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import Typography from '@mui/material/Typography';
-// import { CardActionArea } from '@mui/material';
+const styles = StyleSheet.create({
+  card: {
+    margin: 10,
+    padding: 30,
 
-// export default function PokemonCard({name}) {
-//   return (
-//     <Card sx={{ maxWidth: 345 }}>
-//       <CardActionArea>
-//         <CardMedia
-//           component="img"
-//           height="140"
-//           image=""
-//           alt="green iguana"
-//         />
-//         <CardContent>
-//           <Typography gutterBottom variant="h5" component="div">
-//             {name}
-//           </Typography>
-//        </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// }
+    backgroundColor: "#F993FB",
+    width: 155,
+    height: 100,
+    borderRadius: 20,
+
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
+    position: "absolute",
+    top: -40,
+    left: (150 - 90) / 2,
+  },
+  frame: {
+    flexDirection: "row",
+    width: 140,
+    height: 30,
+    borderRadius: 10,
+    backgroundColor: "#676767",
+    marginBottom: 5,
+
+    justifyContent: "space-between",
+    alignItems: "center",
+
+    paddingHorizontal: 15,
+    position: "absolute",
+    bottom: 6.4,
+  },
+  idBox: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
+  nameBox: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
+  id: {
+    fontSize: 12,
+    color: "#F993FB",
+  },
+  name: {
+    fontSize: 12,
+
+    color: "white",
+  },
+});
+
+export default PokemonCard;

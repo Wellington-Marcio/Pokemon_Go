@@ -3,11 +3,11 @@ import { Button, Input,  Container, } from "./style";
 import { Text } from "react-native";
 
 
-const SearchBar: React.FC = () => {
+const SearchBar= () => {
   const [search, setSearch] = useState("");
 
   const handleSearch = () => {
-    // Lógica de pesquisa aqui
+    
     console.log("Pesquisando por:", search);
   };
 
@@ -26,7 +26,6 @@ const SearchBar: React.FC = () => {
     </Container>
   );
 };
-
 
 
 export default SearchBar;
