@@ -1,31 +1,34 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import LandingScreen from "../../screens/LandingScreen/LandingScreen";
 import DashScreen from "../../screens/DashScreen/DashScreen";
-import Pokemons from "../../screens/Pokemons/Pokemons";
-import Profile from "../../screens/Profile/Profile";
+import ProfileScreen from "../../screens/ProfileScreen/ProfileScreen";
+import {createStackNavigator} from "@react-navigation/stack"
+
 
 
 const Stack = createStackNavigator();
 
-const AppRoutes = () => {
+function AppRoutes  () {
   return (
-    <Stack.Navigator initialRouteName="DashScreen">
+    
+    <Stack.Navigator initialRouteName="landingScreen">
       <Stack.Screen
-        name="DashScreen"
-        component={DashScreen}
-        options={{ title: "" }}
+        name="Go"
+        component={LandingScreen}
+        // options={{ title: "" }}
       />
-      <Stack.Screen
+      <Stack.Group
         name="Pokemons"
-        component={Pokemons}
-        options={{ title: "" }}
+        component={DashScreen}
+        // options={{ title: "" }}
       />
-      <Stack.Screen
+      <Stack.Group
         name="Profiles"
-        component={Profile}
-        options={{ title: "" }}
+        component={ProfileScreen}
+        // options={{ title: "" }}
       />
     </Stack.Navigator>
+
   );
 };
 

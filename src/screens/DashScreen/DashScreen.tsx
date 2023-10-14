@@ -1,32 +1,76 @@
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, TextInput, FlatList } from "react-native";
+import axios from "axios";
+import PokemonCard from "../../components/Card/PokemonCards";
+import PokemonLogo from "../../components/SearchBar/PokemonLogo";
 
-const DashScreen = ({ AppRoutes }) => {
+function DashScreen({navigation}) {
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon?limit=1000"
+        );
+        setData(response.data.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSelect = ({id, name}) => {
+    navigator.navigate("ProfileScreen", { id, name });
+  };
   return (
-    <LinearGradient colors={["#5203a0", "#ff00a2ab"]} style={styles.container}>
-      <TouchableOpacity onPress={() => AppRoutes.navigate("Pokemons")}>
-        <Image source={require("../../img/go.png")} style={styles.Image1} />
-        <Image source={require("../../img/ashe.png")} style={styles.Image2} />
-      </TouchableOpacity>
-    </LinearGradient>
+    <View style={styles.container}>
+      <PokemonLogo />
+      <TextInput
+        style={styles.searchBar}
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Search"
+        onSubmitEditing={() => handleSelect(null, search)}
+      />
+      <FlatList
+        data={data}
+        renderItem={({ item, index }) => (
+          <PokemonCard
+            key={index}
+            sprites={{
+              front_shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                index + 1
+              }.png`,
+            }}
+            id={index + 1}
+            name={item.name}
+            onPress={() => handleSelect(index + 1, item.name)}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+      />
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
+    padding: 20,
     alignItems: "center",
   },
-  Image1: {
-    width: 300,
-    height: 300,
-    marginBottom: 100,
-  },
-  Image2: {
-    width: 400,
-    height: 400,
-    marginBottom: 20,
+  searchBar: {
+    width: 296,
+    padding: 10,
+    margin: 40,
+    backgroundColor: "#E5E5E5",
+    borderRadius: 30,
+    fontSize: 18,
+    textAlign: "center",
   },
 });
 
