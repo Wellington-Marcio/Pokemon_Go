@@ -6,9 +6,10 @@ import PokemonLogo from "../../components/SearchBar/PokemonLogo";
 import { Container, InputSheared } from "./style";
 
 
-function DashScreen({navigation}) {
+function DashScreen() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,13 +27,12 @@ function DashScreen({navigation}) {
   }, []);
 
   const handleSelect = ({id, name}) => {
-    navigator.navigate("ProfileScreen", { id, name });
+    navigation.navigate("ProfileScreen", { id, name });
   };
   return (
     <Container>
       <PokemonLogo />
       <InputSheared
-        style={styles.searchBar}
         value={search}
         onChangeText={setSearch}
         placeholder="Search"

@@ -8,24 +8,24 @@ import {createStackNavigator} from "@react-navigation/stack"
 
 const Stack = createStackNavigator();
 
-function AppRoutes  () {
+function AppRoutes() {
   return (
     
     <Stack.Navigator initialRouteName="landingScreen">
       <Stack.Screen
-        name="Go"
+        name="LandingScreen"
         component={LandingScreen}
-        // options={{ title: "" }}
+        options={{ title: "Go" }}
       />
       <Stack.Group
-        name="Pokemons"
+        name="DashScreen"
         component={DashScreen}
-        // options={{ title: "" }}
+        options={{ title: "" }}
       />
       <Stack.Group
-        name="Profiles"
+        name="ProfileScreen"
         component={ProfileScreen}
-        // options={{ title: "" }}
+        options={{ title: "" }}
       />
     </Stack.Navigator>
 

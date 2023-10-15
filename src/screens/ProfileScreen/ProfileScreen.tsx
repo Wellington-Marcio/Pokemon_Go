@@ -36,11 +36,11 @@ const ProfileScreen = ({ route }) => {
         setFirstMove(firstMoveName);
 
         const typeResponse = await Promise.all(
-          response.data.types.map((t) => axios.get(t.type.url))
+          response.data.types.map((c) => axios.get(c.type.url))
         );
         setTypeData(typeResponse.map((res) => res.data));
       } catch (error) {
-        console.error("Error fetching Pokémon details:", error);
+        console.error("Error Pokémon details:", error);
       }
     };
 
