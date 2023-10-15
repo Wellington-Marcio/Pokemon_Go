@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TextInput, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import axios from "axios";
 import PokemonCard from "../../components/Card/PokemonCards";
 import PokemonLogo from "../../components/SearchBar/PokemonLogo";
+import { Container, InputSheared } from "./style";
+
 
 function DashScreen({navigation}) {
   const [data, setData] = useState([]);
@@ -27,9 +29,9 @@ function DashScreen({navigation}) {
     navigator.navigate("ProfileScreen", { id, name });
   };
   return (
-    <View style={styles.container}>
+    <Container>
       <PokemonLogo />
-      <TextInput
+      <InputSheared
         style={styles.searchBar}
         value={search}
         onChangeText={setSearch}
@@ -54,24 +56,9 @@ function DashScreen({navigation}) {
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
       />
-    </View>
+    </Container>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    alignItems: "center",
-  },
-  searchBar: {
-    width: 296,
-    padding: 10,
-    margin: 40,
-    backgroundColor: "#E5E5E5",
-    borderRadius: 30,
-    fontSize: 18,
-    textAlign: "center",
-  },
-});
+
 
 export default DashScreen;

@@ -3,15 +3,26 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import AppRoutes from "./src/components/Routes/AppRoutes";
 import DashScreen from "./src/screens/DashScreen/DashScreen";
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
 
 
 function App() {
   return (
-    <DashScreen />
-    // <NavigationContainer>
-    //   <AppRoutes />
-    //   <StatusBar style="auto" />
-    // </NavigationContainer>
+
+  
+     <NavigationContainer>
+    <AppRoutes />
+     <StatusBar style="auto" />
+    </NavigationContainer> 
+    
+  
    );
 }
 export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+});
