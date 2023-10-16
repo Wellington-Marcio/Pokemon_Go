@@ -12,11 +12,11 @@ import {
 import axios from "axios";
 import PokemonLogo from "../../components/SearchBar/PokemonLogo";
 
-const ProfileScreen = ({ route }) => {
+const ProfileScreen = ({route}) => {
   const { id } = route.params;
-  const [pokemonData, setPokemonData] = useState(null);
-  const [speciesData, setSpeciesData] = useState(null);
-  const [typeData, setTypeData] = useState([]);
+  const [pokemon, setPokemon] = useState(null);
+  const [species, setSpecies] = useState(null);
+  const [type, setType] = useState([]);
   const [firstMove, setFirstMove] = useState(null);
 
   console.log("Fetching data for Pokemon ID:", id);
@@ -27,10 +27,10 @@ const ProfileScreen = ({ route }) => {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${id}`
         );
-        setPokemonData(response.data);
+        setPokemon(response.data);
 
         const speciesResponse = await axios.get(response.data.species.url);
-        setSpeciesData(speciesResponse.data);
+        setSpecies(speciesResponse.data);
 
         const firstMoveName = response.data.moves[0]?.move.name;
         setFirstMove(firstMoveName);
@@ -38,7 +38,7 @@ const ProfileScreen = ({ route }) => {
         const typeResponse = await Promise.all(
           response.data.types.map((t) => axios.get(t.type.url))
         );
-        setTypeData(typeResponse.map((res) => res.data));
+        setType(typeResponse.map((res) => res.data));
       } catch (error) {
         console.error("Error fetching Pokémon details:", error);
       }
@@ -47,8 +47,8 @@ const ProfileScreen = ({ route }) => {
     fetchData();
   }, [id]);
 
-  if (!pokemonData || !speciesData || !typeData.length) {
-    return <Text>Loading...</Text>;
+  if (!pokemon || !species || !type.length) {
+    return <Text>Loading Pokémon...</Text>;
   }
 
   return (
@@ -56,22 +56,22 @@ const ProfileScreen = ({ route }) => {
       <PokemonLogo style={styles.pokemonImage} />
 
       <View style={styles.header}>
-        <Text style={styles.idText}>#{pokemonData.id}</Text>
-        <Text style={styles.nameText}>{pokemonData.name}</Text>
+        <Text style={styles.idText}>#{pokemon.id}</Text>
+        <Text style={styles.nameText}>{pokemon.name}</Text>
       </View>
 
       <Image
-        source={{ uri: pokemonData.sprites.front_default }}
+        source={{ uri: pokemon.sprites.front_default }}
         style={styles.shinySprite}
       />
       <View style={styles.typeContainer}>
         <View style={styles.subContainer}>
-          <Text style={styles.typeText}>{pokemonData.types[0]?.type.name}</Text>
+          <Text style={styles.typeText}>{pokemon.types[0]?.type.name}</Text>
         </View>
-        {pokemonData.types[1] && (
-          <View style={styles.subContainer}>
+        {pokemon.types[1] && (
+          <View style={styles.subContainer2}>
             <Text style={styles.typeText}>
-              {pokemonData.types[1]?.type.name}
+              {pokemon.types[1]?.type.name}
             </Text>
           </View>
         )}
@@ -81,7 +81,7 @@ const ProfileScreen = ({ route }) => {
         <View style={{ width: "50%" }}>
           <Text style={styles.infoItemLabel}>Category:</Text>
           <Text style={styles.infoResponse}>
-            {speciesData.genera.find((g) => g.language.name === "en").genus}
+            {species.genera.find((g) => g.language.name === "en").genus}
           </Text>
 
           <Text style={styles.infoItemLabel}>Sex:</Text>
@@ -93,14 +93,14 @@ const ProfileScreen = ({ route }) => {
           
 
           <Text style={styles.infoItemLabel}>Height:</Text>
-          <Text style={styles.infoResponse}>{pokemonData.height}m</Text>
+          <Text style={styles.infoResponse}>{pokemon.height}m</Text>
           <Text style={styles.infoItemLabel}>Weight:</Text>
-          <Text style={styles.infoResponse}>{pokemonData.weight}Kg</Text>
+          <Text style={styles.infoResponse}>{pokemon.weight}Kg</Text>
         </View>
 
-        <View style={{ width: "50%" }}>
+        <View style={{ width: "40%" }}>
           <Text style={styles.infoItemLabel}>Weaknesses:</Text>
-          {typeData.map((t) =>
+          {type.map((t) =>
             t.damage_relations.double_damage_from.map((weakness) => (
               <View key={weakness.name} style={styles.weaknessListItem}>
                 <View style={styles.bulletPoint} />
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
 
-    backgroundColor: "#F993FB",
+    backgroundColor: "#ee77f0",
     borderRadius: 30,
   },
   loadingContainer: {
@@ -242,7 +242,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginHorizontal: 10,
-    backgroundColor: "#FCA600",
+    backgroundColor: "#fcac00",
+    borderRadius: 10,
+  },
+  subContainer2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    marginHorizontal: 10,
+    backgroundColor: "#00cefc",
     borderRadius: 10,
   },
   weaknessListItem: {
@@ -251,10 +260,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   bulletPoint: {
-    width: 6,
-    height: 6,
+    width: 8,
+    height: 8,
     borderRadius: 3,
-    backgroundColor: "#1D8FF8",
+    backgroundColor: "#0677f8",
     marginRight: 10,
   },
 });
