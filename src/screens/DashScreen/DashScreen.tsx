@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FlatList } from "react-native";
+import { View, StyleSheet, TextInput, FlatList } from "react-native";
 import axios from "axios";
 import PokemonCard from "../../components/Card/PokemonCards";
 import PokemonLogo from "../../components/SearchBar/PokemonLogo";
-import { Container, InputSheared } from "./style";
 
-
-function DashScreen() {
+const DashScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,17 +23,18 @@ function DashScreen() {
     fetchData();
   }, []);
 
-  const handleSelect = ({id, name}) => {
+  const handlePokemonSelect = (id, name) => {
     navigation.navigate("ProfileScreen", { id, name });
   };
   return (
-    <Container>
+    <View style={styles.container}>
       <PokemonLogo />
-      <InputSheared
+      <TextInput
+        style={styles.searchBar}
         value={search}
         onChangeText={setSearch}
-        placeholder="Search"
-        onSubmitEditing={() => handleSelect(null, search)}
+        placeholder="Search for Pokémon..."
+        onSubmitEditing={() => handlePokemonSelect(null, search)}
       />
       <FlatList
         data={data}
@@ -50,15 +48,31 @@ function DashScreen() {
             }}
             id={index + 1}
             name={item.name}
-            onPress={() => handleSelect(index + 1, item.name)}
+            onPress={() => handlePokemonSelect(index + 1, item.name)}
           />
         )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
       />
-    </Container>
+    </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    alignItems: "center",
+  },
+  searchBar: {
+    width: 296,
+    padding: 10,
+    margin: 40,
+    backgroundColor: "#E5E5E5",
+    borderRadius: 30,
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
 
 export default DashScreen;
+

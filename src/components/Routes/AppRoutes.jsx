@@ -1,35 +1,31 @@
 import React from "react";
-import LandingScreen from "../../screens/LandingScreen/LandingScreen";
+import { createStackNavigator } from "@react-navigation/stack";
+import LandScreen from "../../screens/LandScreen/LandScreen";
 import DashScreen from "../../screens/DashScreen/DashScreen";
 import ProfileScreen from "../../screens/ProfileScreen/ProfileScreen";
-import {createStackNavigator} from "@react-navigation/stack"
-
-
 
 const Stack = createStackNavigator();
 
-function AppRoutes() {
+const AppRoute = () => {
   return (
-    
-    <Stack.Navigator initialRouteName="landingScreen">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-        name="LandingScreen"
-        component={LandingScreen}
-        options={{ title: "Go" }}
+        name="Go"
+        component={LandScreen}
+        options={{ title: "Home" }}
       />
-      <Stack.Group
+      <Stack.Screen
         name="DashScreen"
         component={DashScreen}
-        options={{ title: "" }}
+        options={{ title: "Pokémon List" }}
       />
-      <Stack.Group
+      <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ title: "" }}
+        options={{ title: "Details" }}
       />
     </Stack.Navigator>
-
   );
 };
 
-export default AppRoutes;
+export default AppRoute;

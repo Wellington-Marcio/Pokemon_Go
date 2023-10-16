@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import vetorMasculino from "../../img/vetorMasculino.png";
-import vetorFeminino from "../../img/vetorFeminino.png";
+import male from "../../img/male.png";
+import feme from "../../img/feme.png";
 import {
   View,
   Text,
@@ -36,11 +36,11 @@ const ProfileScreen = ({ route }) => {
         setFirstMove(firstMoveName);
 
         const typeResponse = await Promise.all(
-          response.data.types.map((c) => axios.get(c.type.url))
+          response.data.types.map((t) => axios.get(t.type.url))
         );
         setTypeData(typeResponse.map((res) => res.data));
       } catch (error) {
-        console.error("Error Pokémon details:", error);
+        console.error("Error fetching Pokémon details:", error);
       }
     };
 
@@ -53,7 +53,7 @@ const ProfileScreen = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <PokemonLogo style={styles.pokemonlogo} />
+      <PokemonLogo style={styles.pokemonImage} />
 
       <View style={styles.header}>
         <Text style={styles.idText}>#{pokemonData.id}</Text>
@@ -85,12 +85,13 @@ const ProfileScreen = ({ route }) => {
           </Text>
 
           <Text style={styles.infoItemLabel}>Sex:</Text>
-         
-          <View style={styles.genderContainer}>
-            <Image source={vetorMasculino} style={styles.genderIconMasc} />
-            <Image source={vetorFeminino} style={styles.genderIcon} />
-          </View>
         
+          <View style={styles.genderContainer}>
+            <Image source={male} style={styles.genderIconMasc} />
+            <Image source={feme} style={styles.genderIcon} />
+          </View>
+          
+
           <Text style={styles.infoItemLabel}>Height:</Text>
           <Text style={styles.infoResponse}>{pokemonData.height}m</Text>
           <Text style={styles.infoItemLabel}>Weight:</Text>
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
 
-    backgroundColor: "#e955eb",
+    backgroundColor: "#F993FB",
     borderRadius: 30,
   },
   loadingContainer: {
