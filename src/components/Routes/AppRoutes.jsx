@@ -12,12 +12,12 @@ const AppRoute = () => {
       <Stack.Screen
         name="Go"
         component={LandScreen}
-        options={{ title: "Home" }}
+        options={{ title: "" }}
       />
       <Stack.Screen
         name="DashScreen"
         component={DashScreen}
-        options={{ title: "Pokémon List" }}
+        options={{ title: "Pokémons" }}
       />
       <Stack.Screen
         name="ProfileScreen"
